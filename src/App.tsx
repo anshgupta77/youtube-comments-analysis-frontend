@@ -5,13 +5,16 @@ import DashboardPage from './Pages/DashboardPage';
 
 const App: React.FC = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<FormPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Router>
+    <div className='App w-full h-full'>
+      <Router>
+        <Routes>
+          <Route path="/" element={<FormPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Router>
+
+    </div>
   );
 };
 

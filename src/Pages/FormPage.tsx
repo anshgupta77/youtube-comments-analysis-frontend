@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaYoutube, FaSearch } from 'react-icons/fa';
+import { useAppDispatch } from './../hooks';
+import { resetComments } from './../Slices/CommentSlice';
 import axios from 'axios';
 
 const FormPage: React.FC = () => {
@@ -8,6 +10,7 @@ const FormPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const validateYoutubeUrl = (url: string): boolean => {
     const regex = /^(https?:\/\/)?(www\.)?(youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]{11})(\S*)?$/;
@@ -26,6 +29,7 @@ const FormPage: React.FC = () => {
     setIsLoading(true);
 
     try {
+        dispatch(resetComments());
       const result = await axios.post("http://localhost:5000/api/youtube/fetch-comments", { videoUrl: youtubeUrl });
       console.log(result.data);
       navigate('/dashboard', { state: { youtubeUrl } });
@@ -37,7 +41,7 @@ const FormPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-900 flex flex-col items-center justify-center p-4 w-full">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <FaYoutube className="text-red-600 text-6xl mx-auto mb-4" />
