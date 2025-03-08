@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { backendUrl } from '../constraint';
 
 // Define the type for a single comment
 export interface Comment {
@@ -34,7 +35,7 @@ export const fetchComments = createAsyncThunk(
   'comments/fetchComments',
   async (videoUrl: string, { rejectWithValue }) => {
     try {
-      const response = await axios.post('http://localhost:5000/api/gemini/analyze-comments', { videoUrl });
+      const response = await axios.post(`${backendUrl}/api/gemini/analyze-comments`, { videoUrl });
       console.log(response.data);
       return response.data.comments;
     } catch (error) {

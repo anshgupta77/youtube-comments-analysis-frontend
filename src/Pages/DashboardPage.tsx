@@ -3,10 +3,10 @@
 
 import React, { useEffect, useMemo } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { FaDownload, FaArrowLeft, FaYoutube } from 'react-icons/fa';
+import { FaDownload, FaArrowLeft } from 'react-icons/fa';
 import { useAppDispatch, useAppSelector } from './../hooks';
-import { fetchComments, resetComments, setVideoTitle } from './../Slices/CommentSlice';
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
+import { fetchComments, resetComments } from './../Slices/CommentSlice';
+import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer } from 'recharts';
 
 // Helper function to parse ISO date string
 const parseDate = (dateString: string): { month: string, year: number } => {
@@ -22,7 +22,7 @@ const DashboardPage: React.FC = () => {
   const dispatch = useAppDispatch();
   
   // Get comments data from Redux store
-  const { items: comments, videoTitle, loading, error } = useAppSelector(state => state.comments);
+  const { items: comments, loading, error } = useAppSelector(state => state.comments);
 
   useEffect(() => {
     if (location.state?.youtubeUrl) {
@@ -163,17 +163,8 @@ const DashboardPage: React.FC = () => {
     </div>
   );
 
-  // Custom tooltip for the monthly distribution chart
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="bg-transparent p-3 rounded-md border border-gray-700 shadow-lg">
-          <p className="text-gray-300">{`${label}: ${payload[0].value} comments`}</p>
-        </div>
-      );
-    }
-    return null;
-  };
+  
+ 
   
   // Display loading state or error message
   if (loading) {

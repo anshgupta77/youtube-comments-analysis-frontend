@@ -4,6 +4,7 @@ import { FaYoutube, FaSearch } from 'react-icons/fa';
 import { useAppDispatch } from './../hooks';
 import { resetComments } from './../Slices/CommentSlice';
 import axios from 'axios';
+import { backendUrl } from './../constraint';
 
 const FormPage: React.FC = () => {
   const [youtubeUrl, setYoutubeUrl] = useState('');
@@ -30,7 +31,7 @@ const FormPage: React.FC = () => {
 
     try {
         dispatch(resetComments());
-      const result = await axios.post("http://localhost:5000/api/youtube/fetch-comments", { videoUrl: youtubeUrl });
+      const result = await axios.post(`${backendUrl}/api/youtube/fetch-comments`, { videoUrl: youtubeUrl });
       console.log(result.data);
       navigate('/dashboard', { state: { youtubeUrl } });
     } catch (err) {
